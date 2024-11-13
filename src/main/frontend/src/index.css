@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "Apple SDGothic";
+  font-weight: 400;
+  src: url("./fonts/AppleSDGothicNeo-Medium.ttf") format("truetype"),
+    url("./fonts/AppleSDGothicNeo-Medium.ttf") format("woff"),
+    url("./fonts/AppleSDGothicNeo-Medium.ttf") format("woff2");
+}
+@font-face {
+  font-family: "Apple SDGothic Lite";
+  font-weight: 400;
+  src: url("./fonts/AppleSDGothicNeo-Light.ttf") format("truetype"),
+  url("./fonts/AppleSDGothicNeo-Light.ttf") format("woff"),
+  url("./fonts/AppleSDGothicNeo-Light.ttf") format("woff2");
+}

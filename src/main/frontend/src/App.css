@@ -1,0 +1,22 @@
+
+.row {
+  display: flex;
+  flex-direction: row;
+  /*text-align: center;*/
+  /*justify-content: center;*/
+  align-items: center;
+}
+.col {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.v-line {
+  border-left :  solid #bcbcbc;
+
+  margin-left: 5px;
+  margin-right: 5px;
+  height : 50px;
+}
+

@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.2bdb3708.css",
+    "main.js": "/static/js/main.d6b9beb6.js",
+    "static/media/AppleSDGothicNeo-Light.ttf": "/static/media/AppleSDGothicNeo-Light.0ed4f3cf8e0a053dbc9c.ttf",
+    "static/media/AppleSDGothicNeo-Medium.ttf": "/static/media/AppleSDGothicNeo-Medium.88c00162a2084f97069c.ttf",
+    "index.html": "/index.html",
+    "main.2bdb3708.css.map": "/static/css/main.2bdb3708.css.map",
+    "main.d6b9beb6.js.map": "/static/js/main.d6b9beb6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2bdb3708.css",
+    "static/js/main.d6b9beb6.js"
+  ]
+}
