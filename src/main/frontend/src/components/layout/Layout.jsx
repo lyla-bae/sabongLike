@@ -1,19 +1,16 @@
 import Header from "./Header";
-import Footer from "./Footer";
-import Router from "./Router";
-import styles from "../main/DataTable.module.css"
-import {AuthProvider} from "../providers/AuthProvider";
+import Menu from "./Menu";
+import Main from "../main/Main";
+import Pagination from "../Pagination";
 
 
 const Layout = () => {
   return (
-    <AuthProvider>
+      <div className="container" id="main">
         <Header></Header>
-        <div className={styles["body-height"]}>
-            <Router></Router>
-        </div>
-        <Footer></Footer>
-    </AuthProvider>
+        <Menu></Menu>
+        <Main/>
+      </div>
   );
 };
 

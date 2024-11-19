@@ -1,84 +1,58 @@
-import styles from "./Header.module.css";
-import axios from "axios";
-import {useContext, useState} from "react";
-import {AuthContext} from "../providers/AuthProvider";
 
+import "../../style/default.css"
 const Header = () => {
-  const logout = async(e) => {
-      e.preventDefault();
-      console.log(isAuth);
-
-      const res = await axios.post(
-          "http://localhost:8080/user/logout",{
-          }
-      ).then((res)=> {
-            if (res.status === 200) {
-              console.log("post success");
-              console.log(res.data);
-            }
-          }
-      ).catch((err) => {console.error("errrror"+err)});
-    };
-
-
-  const isAuth = useContext(AuthContext);
-
 
   return (
-    <header className={styles.header}>
+      <>
 
-      <div className={styles["header-container"]}>
-        <div className="row">
-          <a href="/">
-            <div className="row" style={{width: 150 + "px"}}>
-              <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="3em"
-                  height="3em"
-                  viewBox="0 0 24 24"
-              >
-                <path
-                    fill="currentColor"
-                    d="M12 2a9 9 0 0 1 9 9v7.5a3.5 3.5 0 0 1-6.39 1.976a2.999 2.999 0 0 1-5.223 0a3.5 3.5 0 0 1-6.382-1.783L3 18.499V11a9 9 0 0 1 9-9m0 10c-1.105 0-2 1.12-2 2.5s.895 2.5 2 2.5s2-1.12 2-2.5s-.895-2.5-2-2.5M9.5 8a1.5 1.5 0 1 0 0 3a1.5 1.5 0 0 0 0-3m5 0a1.5 1.5 0 1 0 0 3a1.5 1.5 0 0 0 0-3"
-                />
-              </svg>
-              <h1 style={{fontSize: 2 + "rem"}}>service</h1>
-            </div>
+        <header>
+           <a className="logo" href="#">
+            <img src="/images/logo_big.png" className="hidden-mo"
+                 alt="사자는 봉사를 좋아해"/>
+            <img src="/images/logo_small.png" className="visible-mo"
+                 alt="사자는 봉사를 좋아해"/>
           </a>
 
+          <button className="ic ic_back visible-mo">
+            <img src="/images/ic_back.svg" alt="뒤로 가기"/>
+          </button>
 
-            <nav>
-              <ul>
-                <li className={styles["list-item"]}>
-                  <a href="#">활동 찾기</a>
-                </li>
-                <li className={styles["list-item"]}>
-                  <a href="#">리워드 샵</a>
-                </li>
-                <li className={styles["list-item"]}>
-                  <a href="#">물품 나눔</a>
-                </li>
-                <li className={styles["list-item"]}>
-                  <a href="/login">로그인</a>
-                </li>
-                <li className={styles["list-item"]}>
-                  <button onClick={logout}>로그아웃</button>
-                </li>
+          <div className="search_bar_wrap">
+            <div className="search_bar">
+              <input type="search" placeholder="봉사활동 키워드를 입력하세요"/>
+            </div>
+            <button className="ic ic_search">
+              <img src="/images/ic_search.svg" alt="검색어 찾기"/>
+            </button>
+          </div>
 
-                {/*<li className={styles["list-item"]}>*/}
-                {/*  /!*<button >테스트버튼</button>*!/*/}
-                {/*</li>*/}
+          <div className="util_wrap">
+            <a href="#" className="ic ic_bookmark">
+              <img src="/images/ic_bookmark.svg" alt="즐겨찾기 바로가기"/>
+            </a>
+            <a href="#" className="ic ic_bell">
+              <img src="/images/ic_bell.svg" alt="알림 바로가기"/>
+            </a>
 
-                {isAuth? <button>로그인중~~</button>: <button>몰루</button>}
-              </ul>
-            </nav>
-        </div>
-        <div className="user-profile">
-          <img src="https://placehold.co/50" alt=""/>
-        </div>
-      </div>
-    </header>
-  );
-};
+             <div className="logout hidden-mo">
+              <a href="#" className="profile">
+                            <span className="thumb">
 
-export default Header;
+                              <img src="/images/ic_thumb.png" alt="기본 프로필 사진"/>
+
+                            </span>
+                <span className="name">김사봉</span>
+              </a>
+              <a href="#" className="link_logout">
+                <span>로그아웃</span>
+              </a>
+            </div>
+
+
+          </div>
+        </header>
+      </>
+        )
+        };
+
+        export default Header;
