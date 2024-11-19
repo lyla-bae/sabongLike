@@ -162,6 +162,7 @@ body {
   /*grid-column: 3 / 4;*/
   grid-column: 3 / span 2;
   /*aspect-ratio: 1.618;*/
-
-
+}
+.body-height {
+  height: 100vh;
 }

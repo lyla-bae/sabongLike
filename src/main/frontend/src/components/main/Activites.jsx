@@ -41,7 +41,7 @@ export default function Activites(props) {
     const result = response.data.response.body.items.item;
     const totalCount = response.data.response.body.totalCount;
     console.log(totalCount);
-    console.log(totalCount);
+    console.log( service + serviceKey + url);
 
     setData(result);
     setLoading(false);

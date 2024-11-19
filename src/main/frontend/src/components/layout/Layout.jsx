@@ -1,16 +1,19 @@
 import Header from "./Header";
 import Footer from "./Footer";
 import Router from "./Router";
-import KakaoMap from "../detail/Map";
+import styles from "../main/DataTable.module.css"
+import {AuthProvider} from "../providers/AuthProvider";
+
 
 const Layout = () => {
   return (
-    <div>
+    <AuthProvider>
         <Header></Header>
-        <Router></Router>
+        <div className={styles["body-height"]}>
+            <Router></Router>
+        </div>
         <Footer></Footer>
-        {/*<KakaoMap></KakaoMap>*/}
-    </div>
+    </AuthProvider>
   );
 };
 

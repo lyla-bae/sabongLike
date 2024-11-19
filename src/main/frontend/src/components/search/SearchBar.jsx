@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Activites from "../main/Activites";
 
 const SearchBar = (props) => {
-  const [temp, setTemp] = useState("");
+  const [temp, setTemp] = useState("비대면");
   const onChangeIpt = (e) => {
     setTemp(e.target.value);
   };
