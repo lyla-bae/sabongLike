@@ -1,13 +1,12 @@
 package com.example.demo.security;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CorsConfig {

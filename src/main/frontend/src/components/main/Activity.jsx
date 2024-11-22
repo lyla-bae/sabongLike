@@ -1,4 +1,5 @@
-const Activity = (props) => {
+const Activity = ({data}) => {
+
 
   return(
       <>
@@ -8,13 +9,13 @@ const Activity = (props) => {
             <span className="dot"></span>
             <span className="txt-onoff">온라인/오프라인</span>
           </div>
-          <div className="tit">새희망공동희망가정 청소 및 아동돌봄 보조</div>
+          <div className="tit">{data.progrmSj}</div>
           <div className="date date01">
-            <span className="txt-date01 visible-mo">모집기간 : </span>
-            <span>24.10.13</span> ~ <span>24.10.27</span>
+            <span className="txt-date01 visible-mo">활동기간 : </span>
+            <span>{data.progrmBgnde}</span> ~ <span>{data.progrmEndde}</span>
           </div>
           <div className="date date02">
-            <span className="txt-date01 visible-mo">봉사기간 : </span>
+            <span className="txt-date01 visible-mo">활동시간 : </span>
             <span>2개월</span><span>(15:00~18:00)</span>
           </div>
           <div className="reward">

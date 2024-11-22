@@ -2,6 +2,7 @@ package com.example.demo.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -16,6 +17,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
+@ComponentScan(basePackages = "com.sabong")
 public class SecurityConfig {
     @Autowired
     private AuthSuccessHandler authSuccessHandler;
@@ -30,8 +32,17 @@ public class SecurityConfig {
                         .addHeaderWriter(new XFrameOptionsHeaderWriter(
                                 XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN
                         )))
-                 .formLogin(formLogin -> formLogin.disable()) // 기본 로그인 폼 비활성화
+                .formLogin((formLogin)-> formLogin
+                        .loginPage("/user/login")
+                        .successHandler(authSuccessHandler))
+//                        .failureHandler());
 
+//                        .defaultSuccessUrl("http://localhost:3000"))
+//                .login
+                .logout((logout)->logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true))
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .cors((cors)->cors.configurationSource(CorsConfig.corsConfigurationSource()));

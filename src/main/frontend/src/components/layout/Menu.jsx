@@ -1,8 +1,38 @@
-const Menu = (props) => {
+import {useState} from "react";
+
+const Menu = ({setIsChecked, setCheckedList, checkedList, isChecked}) => {
+  const sidoCode = {"세종":"5690000","서울":"6110000","부산":"6260000","대구":"6270000","인천":"6280000","광주":"6290000","대전":"6300000","울산":"6310000","경기":"6410000","강원":"6420000","충북":"6430000","충남":"6440000","전북":"6450000","전남":"6460000","경북":"6470000","경남":"6480000","제주":"6500000"}
+  const keyList = Object.keys(sidoCode);
+
+
+  const checkedItemHandler = (value, isChecked) => {
+    if (isChecked) {
+      setCheckedList((prev) => [...prev, value]);
+
+      return;
+    }
+
+    if (!isChecked && checkedList.includes(value)) {
+      setCheckedList(checkedList.filter((item) => item !== value));
+
+      return;
+    }
+
+    return;
+  };
+
+  const checkHandler = (e, value) => {
+    setIsChecked(!isChecked);
+    checkedItemHandler(value, e.target.checked);
+  };
+
+
+
 
   return (
 
       <nav>
+        {console.log(checkedList)}
         <div id="side_menu">
           <section id="" className="banner_wrap hidden-mo">
             <a href="#">
@@ -28,59 +58,19 @@ const Menu = (props) => {
           <section className="">
             <h6 className="tab_tit">활동지역</h6>
             <div className="tab_wrap">
-              <input type="checkbox" id="checkbox_local01" checked/>
-              <label htmlFor="checkbox_local01">서울</label>
+              {keyList.map((sidoKey,index) => {
+                return(<>
+                <input type="checkbox"
+                       key={sidoKey+"input"}
+                       id={"checkbox_local"+index}
+                       value={sidoCode[sidoKey]}
+                       onChange={(e)=>checkHandler(e, sidoCode[sidoKey])}
+                       checked={checkedList.includes(sidoCode[sidoKey])}
+                />
+                <label   key={sidoKey+"label"} htmlFor={"checkbox_local"+index}>{sidoKey}</label></>)
+              })}
 
-              <input type="checkbox" id="checkbox_local02"/>
-              <label htmlFor="checkbox_local02">경기</label>
 
-              <input type="checkbox" id="checkbox_local03"/>
-              <label htmlFor="checkbox_local03">인천</label>
-
-              <input type="checkbox" id="checkbox_local04"/>
-              <label htmlFor="checkbox_local04">강원</label>
-
-              <input type="checkbox" id="checkbox_local05"/>
-              <label htmlFor="checkbox_local05">충남</label>
-
-              <input type="checkbox" id="checkbox_local06"/>
-              <label htmlFor="checkbox_local06">대전</label>
-
-              <input type="checkbox" id="checkbox_local07"/>
-              <label htmlFor="checkbox_local07">충북</label>
-
-              <input type="checkbox" id="checkbox_local08"/>
-              <label htmlFor="checkbox_local08">세종</label>
-
-              <input type="checkbox" id="checkbox_local09"/>
-              <label htmlFor="checkbox_local09">부산</label>
-
-              <input type="checkbox" id="checkbox_local10"/>
-              <label htmlFor="checkbox_local10">울산</label>
-
-              <input type="checkbox" id="checkbox_local11"/>
-              <label htmlFor="checkbox_local11">대구</label>
-
-              <input type="checkbox" id="checkbox_local12"/>
-              <label htmlFor="checkbox_local12">경북</label>
-
-              <input type="checkbox" id="checkbox_local13"/>
-              <label htmlFor="checkbox_local13">경남</label>
-
-              <input type="checkbox" id="checkbox_local14"/>
-              <label htmlFor="checkbox_local14">전남</label>
-
-              <input type="checkbox" id="checkbox_local15"/>
-              <label htmlFor="checkbox_local15">광주</label>
-
-              <input type="checkbox" id="checkbox_local16"/>
-              <label htmlFor="checkbox_local16">전북</label>
-
-              <input type="checkbox" id="checkbox_local17"/>
-              <label htmlFor="checkbox_local17">제주</label>
-
-              <input type="checkbox" id="checkbox_local_all"/>
-              <label htmlFor="checkbox_local_all">전국</label>
 
             </div>
           </section>
@@ -88,7 +78,7 @@ const Menu = (props) => {
           <section>
             <h6 className="tab_tit">선호 활동</h6>
             <div className="tab_wrap">
-              <input type="checkbox" id="checkbox_like01" checked/>
+              <input type="checkbox" id="checkbox_like01" />
               <label htmlFor="checkbox_like01">OA</label>
 
               <input type="checkbox" id="checkbox_like02"/>

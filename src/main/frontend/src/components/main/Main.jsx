@@ -1,23 +1,10 @@
 import Pagination from "../Pagination";
 import axios from "axios";
 import {useEffect, useState} from "react";
+import Activity from "./Activity";
 
-const Main = (props) => {
-  const [data, setData] = useState()
-
-  useEffect(() => {
-    axios({
-      url:"http://localhost:8080/info/get",
-      method:"get"
-
-    }).then(res =>{
-      console.log(res)
-      // setData(res)
-        }
-    )
-  }, []);
-
-
+const Main = ({data, page , setPage, contents}) => {
+  
 
 
   return (<>
@@ -31,10 +18,18 @@ const Main = (props) => {
           </div>
               <div className="board_con_wrap">
               {/*여기 activty*/}
+                {data&&data.content.map(
+                    data=>{
+                      return <Activity key={data.progrmRegistNo} data={data}/>
+                    }
+                )}
+
+                {data?console.log(data):""}
               </div>
             </div>
-          </main>
-        <Pagination/>
+        <Pagination currentPage={page} totalPost={contents} handlePageChange={setPage}/>
+
+      </main>
       </>
           )
 }
