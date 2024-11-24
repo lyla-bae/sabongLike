@@ -1,9 +1,11 @@
+import {Link} from "react-router-dom";
+
 const Activity = ({data}) => {
 
 
   return(
       <>
-        <a className="board_con" href="#">
+        <Link className="board_con" to={`/detail/${data["progrmRegistNo"]}`}>
           <div className="txt_wrap visible-mo">
             <span className="txt-loacl">부산</span>
             <span className="dot"></span>
@@ -22,7 +24,7 @@ const Activity = ({data}) => {
             <span className="num">5</span><span
               className="ic_lion">어흥</span>
           </div>
-        </a>
+        </Link>
       </>
   )
 }

@@ -1,17 +1,18 @@
 
 import "../../style/default.css"
+import {Link} from "react-router-dom";
 const Header = () => {
 
   return (
       <>
 
         <header>
-           <a className="logo" href="#">
+           <Link className="logo" to="/">
             <img src="/images/logo_big.png" className="hidden-mo"
                  alt="사자는 봉사를 좋아해"/>
             <img src="/images/logo_small.png" className="visible-mo"
                  alt="사자는 봉사를 좋아해"/>
-          </a>
+          </Link>
 
           <button className="ic ic_back visible-mo">
             <img src="/images/ic_back.svg" alt="뒤로 가기"/>
