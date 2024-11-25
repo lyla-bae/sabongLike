@@ -12,7 +12,7 @@ const AllActivities = (props)=>{
   useEffect(() => {
 
     axios({
-      url:`http://localhost:8080/info/get?page=${page}`,
+      url:`/info/get?page=${page}`,
       method:"get"
     }).then(response =>{
           console.log(response)

@@ -33,7 +33,7 @@ const MainPage = ({setPosition}) => {
     };
 
     axios({
-      url:`http://localhost:8080/info/get?page=${page}`,
+      url:`/info/get?page=${page}`,
       method:"get",
       params:params
 
