@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
@@ -77,28 +78,35 @@ public class VolunteeringService {
 
 
             for (int i=0; i < jsonArray.length(); i++) {
+
                 JSONObject item = jsonArray.getJSONObject(i);
 
 
                 String progrmRegistNo = item.get("progrmRegistNo").toString();
-                String progrmSj = item.get("progrmSj").toString();
-                String  nanmmbyNm = item.get("nanmmbyNm").toString();
-                Integer progrmBgnde = (Integer) item.get("progrmBgnde");
-                Integer progrmEndde =  (Integer)  item.get("progrmEndde") ;
-                Integer  progrmSttusSe = (Integer) item.get("progrmSttusSe");
-                Integer sidoCd = (Integer)item.get("sidoCd");
-                Integer gugunCd = (Integer)item.get("gugunCd");
-                Integer actBeginTm = (Integer) item.get("actBeginTm");
-                Integer actEndTm = (Integer) item.get("actEndTm");
-                String actPlace = item.get("actPlace").toString();
-                String vUrl = item.get("url").toString();
-                String adultPosblAt = item.get("adultPosblAt").toString();
-                String yngbgsPosblAt = item.get("yngbgsPosblAt").toString();
 
-                Volunteering volunteering = new Volunteering(null,
-                    progrmRegistNo,progrmSj,nanmmbyNm,progrmBgnde,progrmEndde,progrmSttusSe,
-                    sidoCd,gugunCd,actBeginTm,actEndTm,actPlace,vUrl,adultPosblAt,yngbgsPosblAt
-                );
+                // DB에서 해당 데이터를 조회
+                Optional<Volunteering> existingVolunteering = volunteeringRepository.findByProgrmRegistNo(progrmRegistNo);
+
+                Volunteering volunteering = existingVolunteering.orElseGet(() -> new Volunteering());
+
+
+                volunteering.setProgrmRegistNo(progrmRegistNo);
+                volunteering.setProgrmSj(item.get("progrmSj").toString());
+                volunteering.setNanmmbyNm(item.get("nanmmbyNm").toString());
+                volunteering.setProgrmBgnde((Integer) item.get("progrmBgnde"));
+                volunteering.setProgrmEndde((Integer) item.get("progrmEndde"));
+                volunteering.setProgrmSttusSe((Integer) item.get("progrmSttusSe"));
+                volunteering.setSidoCd((Integer) item.get("sidoCd"));
+                volunteering.setGugunCd((Integer) item.get("gugunCd"));
+                volunteering.setActBeginTm((Integer) item.get("actBeginTm"));
+                volunteering.setActEndTm((Integer) item.get("actEndTm"));
+                volunteering.setActPlace(item.get("actPlace").toString());
+                volunteering.setUrl(item.get("url").toString());
+                volunteering.setAdultPosblAt(item.get("adultPosblAt").toString());
+                volunteering.setYngbgsPosblAt(item.get("yngbgsPosblAt").toString());
+
+
+
 
 //                VolunteeringDto volunteeringDto = new VolunteeringDto();
 //                volunteeringDto = VolunteeringDto.createDto(volunteering);
@@ -110,6 +118,75 @@ public class VolunteeringService {
             e.printStackTrace();
         }
     }
+
+
+    public void setDetailInfo(){
+//
+//            try {
+//                // DB에 저장된 전체 리스트 조회
+//                List<Volunteering> allVolunteering = volunteeringRepository.findAll();
+//
+//                for (Volunteering volunteering : allVolunteering) {
+//                    String progrmRegistNo = volunteering.getProgrmRegistNo();
+//
+//                    // 상세 정보가 있는지 확인
+//                    if (volunteering.getDetailInfo() != null) {
+//                        System.out.println("이미 상세 정보가 있음: " + progrmRegistNo);
+//                        continue; // 상세 정보가 있으면 건너뜀
+//                    }
+//
+//                    // 상세 정보 API 요청 URL 구성
+//                    StringBuilder detailUrlBuilder = new StringBuilder("http://openapi.1365.go.kr/openapi/service/rest/VolunteerPartcptnService/getDetailInfo");
+//                    detailUrlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8") + "=" + URLEncoder.encode("vb52G3WJqnRQ7ECwTfXfSGQJY3AFx9yCfxGlDJGPgAiUVTu3g+qmq+8wZNLRKenbUiuGfuLPwmJHpxMb9SbYow==", "UTF-8"));
+//                    detailUrlBuilder.append("&" + URLEncoder.encode("progrmRegistNo", "UTF-8") + "=" + URLEncoder.encode(progrmRegistNo, "UTF-8"));
+//
+//                    URL detailUrl = new URL(detailUrlBuilder.toString());
+//                    HttpURLConnection conn = (HttpURLConnection) detailUrl.openConnection();
+//                    conn.setRequestMethod("GET");
+//                    conn.setRequestProperty("Content-type", "application/json");
+//                    System.out.println("Response code: " + conn.getResponseCode());
+//
+//                    BufferedReader rd;
+//                    if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+//                        rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//                    } else {
+//                        rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+//                    }
+//
+//                    StringBuilder sb = new StringBuilder();
+//                    String line;
+//                    while ((line = rd.readLine()) != null) {
+//                        sb.append(line);
+//                    }
+//                    rd.close();
+//                    conn.disconnect();
+//
+//                    // XML -> JSON 변환
+//                    JSONObject jsonObject = XML.toJSONObject(sb.toString());
+//
+//                    // 상세 정보 처리
+//                    JSONObject detailInfo = jsonObject
+//                        .getJSONObject("response")
+//                        .getJSONObject("body")
+//                        .getJSONObject("item");
+//
+//                    // 필요한 상세 정보 매핑
+//                    volunteering.setDetailInfo(detailInfo.get("detailField").toString()); // 예시: 'detailField'를 실제 필드로 대체
+//                    volunteering.setAnotherDetail(detailInfo.get("anotherField").toString()); // 예시: 'anotherField'를 실제 필드로 대체
+//
+//                    // DB에 업데이트
+//                    volunteeringRepository.save(volunteering);
+//                    System.out.println("상세 정보 저장 완료: " + progrmRegistNo);
+//                }
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//
+
+    }
+
+
 
 
     public List<VolunteeringDto> getInfo() {
