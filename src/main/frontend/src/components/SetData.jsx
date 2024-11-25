@@ -3,7 +3,7 @@ import axios from "axios";
 const SetData = (props) => {
   const setDataHandler = () => {
     axios({
-      url:`http://localhost:8080/info/set`,
+      url:`/info/set`,
       method:'get'
 
     }).then(response=>{

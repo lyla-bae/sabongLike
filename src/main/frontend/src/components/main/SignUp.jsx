@@ -20,7 +20,7 @@ const SignUp = () => {
 
         e.preventDefault();
             const res = await axios.post(
-                "http://localhost:8080/user/signup",{
+                "/user/signup",{
                     loginId: signupInput.loginId,
                 password1: signupInput.password1,
                 password2: signupInput.password2,
