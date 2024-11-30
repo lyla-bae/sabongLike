@@ -1,5 +1,6 @@
 import {useParams} from "react-router-dom";
 import {useEffect} from "react";
+import Comment from "./Comment";
 
 const Detail = ({setPosition}) => {
   const {id} =useParams()
@@ -81,25 +82,7 @@ const Detail = ({setPosition}) => {
               <h3>상세내용</h3>
               <div className="con">상세 내용 본문위치</div>
             </section>
-            <section className="comment_wrap">
-              <h3>댓글</h3>
-              <div className="write_wrap">
-                <textarea name="textrea_comment" id="textrea_comment"
-                          placeholder="댓글을 작성해주세요."
-                          style={{width: "100%", resize: "none"}}/>
-                <button className="btn_register">등록</button>
-              </div>
-              <ul className="list_wrap">
-                <li>
-                  <strong>댓글 본문</strong>
-                  <p>
-                    <span className="date">2024.01.01</span>
-                    <span className="name">풍핑이</span>
-                  </p>
-                </li>
-
-              </ul>
-            </section>
+              <Comment postId={id} />
           </main>
 
 
