@@ -5,14 +5,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Volunteering {
@@ -23,7 +26,7 @@ public class Volunteering {
 
     // 프로그램 등록 번호
     @Column(name = "progrm_regist_no")
-    private String progrmRegistNo;
+    private Integer progrmRegistNo;
     // 봉사 제목
     @Column(name = "progrm_sj")
     private String progrmSj;
@@ -76,5 +79,46 @@ public class Volunteering {
     @Column(name = "yngbgs_posbl_at")
     private String yngbgsPosblAt;
 
+    @Column(name = "notice_bgnde")
+    private Integer noticeBgnde; // 모집시작일
 
+    @Column(name = "notice_endde")
+    private Integer noticeEndde; // 모집종료일
+
+    @Column(name = "rcrit_nmpr")
+    private Integer rcritNmpr; // 모집인원
+
+    @Column(name = "act_wkdy")
+    private String actWkdy; // 활동요일
+
+    @Column(name = "app_total")
+    private Integer appTotal; // 신청인원수
+
+    @Column(name = "srvc_cl_code")
+    private String srvcClCode; // 봉사분야
+
+    @Column(name = "grp_posbl_at")
+    private String grpPosblAt; // 단체가능여부
+
+    @Column(name = "mnnst_nm")
+    private String mnnstNm; // 모집기관(주관기관명)
+
+    @Column(name = "area_lalo1")
+    private String areaLalo1;
+
+    @Column(name = "nanmmby_nm_admn")
+    private String nanmmbyNmAdmn; // 담당자명
+
+    @Column(name = "telno")
+    private String telno; // 전화번호
+
+    @Column(name = "post_adres")
+    private String postAdres; // 담당자 주소
+
+    @Column(name = "email")
+    private String email; // 이메일
+
+    @Lob
+    @Column(name = "progrm_cn", columnDefinition = "TEXT")
+    private String progrmCn; // 내용
 }

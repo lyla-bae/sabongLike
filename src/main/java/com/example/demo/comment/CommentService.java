@@ -1,6 +1,5 @@
 package com.example.demo.comment;
 
-import com.example.demo.AuthUtil;
 import com.example.demo.DataNotFoundException;
 import com.example.demo.volunteer.Volunteering;
 import com.example.demo.volunteer.VolunteeringRepository;

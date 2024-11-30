@@ -1,21 +1,42 @@
 import {useParams} from "react-router-dom";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
+import axios from "axios";
 import Comment from "./Comment";
 
 const Detail = ({setPosition}) => {
   const {id} =useParams()
+  const [data, setData] = useState()
 
   useEffect(() => {
     setPosition("list_view")
+
+    axios({
+      url:`/info/detail/${id}`,
+      method:"get",
+    }).then(res=>{
+      setData(res.data)
+      console.log(res.data)
+    }).catch(err=>{
+      console.log(err)
+    })
+
+
   }, []);
 
+  const textFormmater =(originalText)=> {
+    console.log(JSON.stringify(data.progrmCn));
+    return  originalText.replace(/\r/g, '\n');
+  }
+
+
+
+
   return(<>
-
-
+        {data&&<>
           <main>
             <section className="top_wrap">
               <h1 className="tit">
-                2024 모두예술극장 기획 프로그램 키아라 베르사니 활동 전시회
+                {data?.progrmSj}
               </h1>
               <div className="btn_wrap">
                 <a className="btn_like" href="#">
@@ -40,18 +61,18 @@ const Detail = ({setPosition}) => {
                 <dd>
                   <dl className="date_label_wrap">
                     <dt>시작일</dt>
-                    <dd>24.11.18</dd>
+                    <dd>{data?.noticeBgnde}</dd>
 
                     <dt>종료일</dt>
-                    <dd>24.12.01</dd>
+                    <dd>{data?.noticeEndde}</dd>
                   </dl>
                 </dd>
 
                 <dt>활동기간</dt>
                 <dd>
-                  <span>24.11</span>
+                  <span>{data?.progrmBgnde}</span>
                   ~
-                  <span>24.12</span>
+                  <span>{data?.progrmEndde}</span>
                 </dd>
 
                 <dt>모집인원</dt>
@@ -80,7 +101,7 @@ const Detail = ({setPosition}) => {
             </section>
             <section className="con_wrap">
               <h3>상세내용</h3>
-              <div className="con">상세 내용 본문위치</div>
+              <div className="con">{textFormmater(data.progrmCn)}</div>
             </section>
               <Comment postId={id} />
           </main>
@@ -99,7 +120,7 @@ const Detail = ({setPosition}) => {
             </ul>
           </aside>
 
-      </>
+        </>}</>
 
   )
 

@@ -17,5 +17,11 @@ public interface VolunteeringRepository extends JpaRepository<Volunteering, Long
 
     Page<Volunteering> findAll(Specification<Volunteering> spec, Pageable pageable);
 
-    Optional<Volunteering> findByProgrmRegistNo(String progrmRegistNo);
+    Optional<Volunteering> findByProgrmRegistNo(Integer progrmRegistNo);
+
+    List<Volunteering> findByTelnoIsNull();
+
+    List<Volunteering> findByEmailIsNull();
+
+
 }

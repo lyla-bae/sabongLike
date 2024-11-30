@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {Link} from "react-router-dom";
 
 const Menu = ({setIsChecked, setCheckedList, checkedList, isChecked}) => {
   const sidoCode = {"세종":"5690000","서울":"6110000","부산":"6260000","대구":"6270000","인천":"6280000","광주":"6290000","대전":"6300000","울산":"6310000","경기":"6410000","강원":"6420000","충북":"6430000","충남":"6440000","전북":"6450000","전남":"6460000","경북":"6470000","경남":"6480000","제주":"6500000"}
@@ -51,7 +52,10 @@ const Menu = ({setIsChecked, setCheckedList, checkedList, isChecked}) => {
               <div className="ic">
                 <img src="/images/ic_gnb03.svg" alt="데일리 목표"/>
               </div>
+              <Link to={"/certification"}>
               <p className="">데일리 목표</p>
+              </Link>
+
             </a>
           </section>
 

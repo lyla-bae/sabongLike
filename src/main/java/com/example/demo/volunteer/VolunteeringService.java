@@ -1,5 +1,6 @@
 package com.example.demo.volunteer;
 
+import jakarta.transaction.Transactional;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -29,7 +31,7 @@ public class VolunteeringService {
 
 //    @Value("${volunteeringApiKeyDecoding}")
   //  private String volunteeringApiKeyDecoding;
-
+    @Async
     public void setInfo() {
 
         try {
@@ -82,7 +84,7 @@ public class VolunteeringService {
                 JSONObject item = jsonArray.getJSONObject(i);
 
 
-                String progrmRegistNo = item.get("progrmRegistNo").toString();
+                Integer progrmRegistNo = (Integer) item.get("progrmRegistNo");
 
                 // DB에서 해당 데이터를 조회
                 Optional<Volunteering> existingVolunteering = volunteeringRepository.findByProgrmRegistNo(progrmRegistNo);
@@ -90,7 +92,7 @@ public class VolunteeringService {
                 Volunteering volunteering = existingVolunteering.orElseGet(() -> new Volunteering());
 
 
-                volunteering.setProgrmRegistNo(progrmRegistNo);
+                volunteering.setProgrmRegistNo(Integer.valueOf(progrmRegistNo));
                 volunteering.setProgrmSj(item.get("progrmSj").toString());
                 volunteering.setNanmmbyNm(item.get("nanmmbyNm").toString());
                 volunteering.setProgrmBgnde((Integer) item.get("progrmBgnde"));
@@ -119,70 +121,106 @@ public class VolunteeringService {
         }
     }
 
-
+    @Async
+    @Transactional
     public void setDetailInfo(){
+
+            try {
+                // DB에 저장된 전체 리스트 조회
+                List<Volunteering> allVolunteering = volunteeringRepository.findByEmailIsNull();
+                int index = 0;
+
+                for (Volunteering volunteering : allVolunteering) {
+
+                    try{
+                    String progrmRegistNo = volunteering.getProgrmRegistNo().toString();
+
+                    // 상세 정보가 있는지 확인
+                    if (volunteering.getProgrmCn() != null) {
+                        System.out.println("이미 상세 정보가 있음: " + progrmRegistNo);
+                        continue; // 상세 정보가 있으면 건너뜀
+                    }
+
+                    index++;
+                    if (index >= 3000 ){break;}
+
+                    // 상세 정보 API 요청 URL 구성
+                    StringBuilder detailUrlBuilder = new StringBuilder("http://openapi.1365.go.kr/openapi/service/rest/VolunteerPartcptnService/getVltrPartcptnItem");
+                    detailUrlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8") + "=" + URLEncoder.encode("vb52G3WJqnRQ7ECwTfXfSGQJY3AFx9yCfxGlDJGPgAiUVTu3g+qmq+8wZNLRKenbUiuGfuLPwmJHpxMb9SbYow==", "UTF-8"));
+                    detailUrlBuilder.append("&" + URLEncoder.encode("progrmRegistNo", "UTF-8") + "=" + URLEncoder.encode(progrmRegistNo, "UTF-8"));
+
+                    URL detailUrl = new URL(detailUrlBuilder.toString());
+                    HttpURLConnection conn = (HttpURLConnection) detailUrl.openConnection();
+                    conn.setRequestMethod("GET");
+                    conn.setRequestProperty("Content-type", "application/json");
+                    System.out.println("Response code: " + conn.getResponseCode());
+
+                    BufferedReader rd;
+                    if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+                        rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    } else {
+                        rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                    }
+
+                    StringBuilder sb = new StringBuilder();
+                    String line;
+                    while ((line = rd.readLine()) != null) {
+                        sb.append(line);
+                    }
+                    rd.close();
+                    conn.disconnect();
+
+                    // XML -> JSON 변환
+                    JSONObject jsonObject = XML.toJSONObject(sb.toString());
+
+                    // 상세 정보 처리
+                    JSONObject detailInfo = jsonObject
+                        .getJSONObject("response")
+                        .getJSONObject("body")
+                        .getJSONObject("items")
+                        .getJSONObject("item");
+
 //
-//            try {
-//                // DB에 저장된 전체 리스트 조회
-//                List<Volunteering> allVolunteering = volunteeringRepository.findAll();
-//
-//                for (Volunteering volunteering : allVolunteering) {
-//                    String progrmRegistNo = volunteering.getProgrmRegistNo();
-//
-//                    // 상세 정보가 있는지 확인
-//                    if (volunteering.getDetailInfo() != null) {
-//                        System.out.println("이미 상세 정보가 있음: " + progrmRegistNo);
-//                        continue; // 상세 정보가 있으면 건너뜀
-//                    }
-//
-//                    // 상세 정보 API 요청 URL 구성
-//                    StringBuilder detailUrlBuilder = new StringBuilder("http://openapi.1365.go.kr/openapi/service/rest/VolunteerPartcptnService/getDetailInfo");
-//                    detailUrlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8") + "=" + URLEncoder.encode("vb52G3WJqnRQ7ECwTfXfSGQJY3AFx9yCfxGlDJGPgAiUVTu3g+qmq+8wZNLRKenbUiuGfuLPwmJHpxMb9SbYow==", "UTF-8"));
-//                    detailUrlBuilder.append("&" + URLEncoder.encode("progrmRegistNo", "UTF-8") + "=" + URLEncoder.encode(progrmRegistNo, "UTF-8"));
-//
-//                    URL detailUrl = new URL(detailUrlBuilder.toString());
-//                    HttpURLConnection conn = (HttpURLConnection) detailUrl.openConnection();
-//                    conn.setRequestMethod("GET");
-//                    conn.setRequestProperty("Content-type", "application/json");
-//                    System.out.println("Response code: " + conn.getResponseCode());
-//
-//                    BufferedReader rd;
-//                    if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-//                        rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-//                    } else {
-//                        rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-//                    }
-//
-//                    StringBuilder sb = new StringBuilder();
-//                    String line;
-//                    while ((line = rd.readLine()) != null) {
-//                        sb.append(line);
-//                    }
-//                    rd.close();
-//                    conn.disconnect();
-//
-//                    // XML -> JSON 변환
-//                    JSONObject jsonObject = XML.toJSONObject(sb.toString());
-//
-//                    // 상세 정보 처리
-//                    JSONObject detailInfo = jsonObject
-//                        .getJSONObject("response")
-//                        .getJSONObject("body")
-//                        .getJSONObject("item");
-//
-//                    // 필요한 상세 정보 매핑
-//                    volunteering.setDetailInfo(detailInfo.get("detailField").toString()); // 예시: 'detailField'를 실제 필드로 대체
-//                    volunteering.setAnotherDetail(detailInfo.get("anotherField").toString()); // 예시: 'anotherField'를 실제 필드로 대체
-//
-//                    // DB에 업데이트
-//                    volunteeringRepository.save(volunteering);
-//                    System.out.println("상세 정보 저장 완료: " + progrmRegistNo);
-//                }
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//
+
+                    System.out.println(detailInfo);
+
+
+
+
+
+                        volunteering.setNoticeBgnde(detailInfo.optInt("noticeBgnde")); // 모집시작일
+                        volunteering.setNoticeEndde(detailInfo.optInt("noticeEndde")); // 모집종료일
+                        volunteering.setRcritNmpr(detailInfo.optInt("rcritNmpr")); // 모집인원
+                        volunteering.setActWkdy(detailInfo.optString("actWkdy", null)); // 활동요일
+                        volunteering.setAppTotal(detailInfo.optInt("appTotal")); // 신청인원수
+                        volunteering.setSrvcClCode(detailInfo.optString("srvcClCode", null)); // 봉사분야
+                        volunteering.setGrpPosblAt(detailInfo.optString("grpPosblAt", null)); // 단체가능여부
+                        volunteering.setMnnstNm(detailInfo.optString("mnnstNm", null)); // 모집기관(주관기관명)
+                        volunteering.setNanmmbyNmAdmn(detailInfo.optString("nanmmbyNmAdmn", null)); // 담당자명
+                        volunteering.setTelno(detailInfo.optString("telno", null)); // 전화번호
+                        volunteering.setPostAdres(detailInfo.optString("postAdres", null)); // 담당자 주소
+                        volunteering.setEmail(detailInfo.optString("email", null)); // 이메일
+                        volunteering.setProgrmCn(detailInfo.optString("progrmCn", null)); // 내용
+                        volunteering.setAreaLalo1(detailInfo.optString("areaLalo1", null)); // 지역 위경도
+
+
+                        System.out.println(volunteering.toString());
+
+
+                    // DB에 업데이트
+                    volunteeringRepository.save(volunteering);
+                    System.out.println("상세 정보 저장 완료: " + progrmRegistNo);
+
+                    }catch(Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
 
     }
 
@@ -222,7 +260,10 @@ public class VolunteeringService {
 
         return  volunteeringPage.map(VolunteeringDto::createDto);
     }
-//de
 
+    public Optional<Volunteering> findByProgrmRegistNo(Integer progrmRegistNo) {
+
+        return volunteeringRepository.findByProgrmRegistNo(progrmRegistNo);
+    }
 
 }

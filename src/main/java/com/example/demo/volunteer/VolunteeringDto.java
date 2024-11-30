@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class VolunteeringDto {
 
-    private String progrmRegistNo;
+    private Integer progrmRegistNo;
     private String progrmSj;
     private String nanmmbyNm;
     private Integer progrmBgnde;
