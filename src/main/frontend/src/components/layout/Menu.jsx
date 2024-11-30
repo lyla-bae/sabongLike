@@ -36,12 +36,12 @@ const Menu = ({setIsChecked, setCheckedList, checkedList, isChecked}) => {
         {console.log(checkedList)}
         <div id="side_menu">
           <section id="" className="banner_wrap hidden-mo">
-            <a href="#">
+            <Link to={"/reward_shop"}>
               <div className="ic">
                 <img src="/images/ic_gnb04.svg" alt="리워드 샵"/>
               </div>
               <p className="">리워드 샵</p>
-            </a>
+            </Link>
             <a href="#">
               <div className="ic">
                 <img src="/images/ic_gnb02.svg" alt="물품 나눔"/>

@@ -4,28 +4,25 @@ import axios from "axios";
 const Comment = ({postId}) => {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
-    const [msg, setMsg] = useState("");
+    // const [msg, setMsg] = useState("");
+    const [add, setAdd] = useState(false)
 
     useEffect(() => {
         axios.get(`/api/comment/list/${postId}`)
             .then(response => {
-                if (Array.isArray(response.data) && response.data.length === 0) {
-                    setMsg("등록된 댓글이 없습니다.");
-                } else {
-                    setComments(response.data);
-                }
+                setComments(response.data);
             })
             .catch(error => {
                 if (error.response && error.response.status === 404) {
-                    setMsg(error.response.data); // 에러 메시지 처리
                 }
             });
-    }, [postId]);
+    }, [add]);
 
     const handleAddComment = () => {
         axios.post(`/api/comment/add/${postId}`, {content: newComment}).then((res) => {
             setComments([...comments, res.data]);
             setNewComment("");
+            // setAdd(!add)
         });
     };
 
@@ -46,8 +43,8 @@ const Comment = ({postId}) => {
                 </button>
             </div>
             <ul className="list_wrap">
-                {msg ? (
-                    <p>{msg}</p>
+                {comments.length==0 ? (
+                    <p>등록된 댓글이 없습니다.</p>
                 ) : (
                     comments.map((comment) => (
                         <li key={comment.id}>
