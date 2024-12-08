@@ -62,4 +62,4 @@ out/
 ### VS Code ###
 .vscode/
 
-**/build/**
+**/build/**.DS_Store
