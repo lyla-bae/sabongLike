@@ -17,7 +17,7 @@ const Layout = () => {
         <Routes>
           <Route path="/" element={<MainPage setPosition = {setPosition} />}/>
           <Route path="/detail/:id" element={<Detail setPosition = {setPosition} />}/>
-          <Route path="/reword_shop" element={<RewardShop setPosition = {setPosition}/>}/>
+          <Route path="/reward_shop" element={<RewardShop setPosition = {setPosition}/>}/>
 
         </Routes>
       </div>

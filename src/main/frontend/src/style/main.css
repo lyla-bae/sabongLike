@@ -1,301 +1,14 @@
-.pagination{
-    width: 70%;
-    display:flex;
-    justify-self: center;
-    justify-content: space-between;
-}
-.pagination > button {
-    width: 50px;
-
-}
-*{
-    font-family: "Poppins", sans-serif;
-    margin: 0;
-    padding: 0;
-}
-html,body{
-    width: 100%;
-    scroll-behavior: smooth;
-}
-a{
-    color: #222;
-
-}
-button{
-    background: #fff;
-}
-input,input:focus,
-select,select:focus{
-    border: 0;
-    appearance: none;
-    outline: none;
-    font-size: 1em;
-}
-
-input[type="checkbox"],input[type="radio"]{
+/* 2차 카테고리 숨기기 */
+#main nav #cate_menu,
+#list_view nav #cate_menu{
     display: none;
 }
-input[type="checkbox"] + label,input[type="radio"] + label{
-    cursor: pointer;
-}
-input[type="checkbox"]:checked + label{
-    font-weight: 700;
-}
-
-input[type="search"] {
-    padding-right: 0;
-    background: #fff;
-    -webkit-appearance: textfield;
-}
-
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration{
-    -webkit-appearance: none;
-}
-input[type="search"]::-webkit-search-cancel-button{
-    width: 12px; 
-    height: 12px; 
-    background: url(../../public/images/ic_del.svg) center center no-repeat;
-    cursor: pointer;
-    opacity: 0.5;
-
-}
-*::-webkit-search-cancel-button {
-    -webkit-appearance: searchfield-cancel-button;
-}
-
-textarea,textarea:focus,textarea:active{
-    outline: none;
-}
-
-button,button:focus,button:active{
-    border: none;
-    cursor: pointer;
-}
-button > img{
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.visible-mo{
-    display: none;
-}
-.hidden-mo{
-    display: block;
-}
-
-
-.container{
-    display: block;
-    width: 1580px;
-    margin: 0 auto;
-}
-.point{
-    color: #6D4534;
-}
-.ic{
-    /* display: block; */
-    width: 25px;
-    height: 25px;
-}
-
-
 
 #main{
     display: grid;
     grid-template-columns: 30% 1fr;
     /* gap: 0 40px; */
 }
-header{
-    width: 100%;
-    grid-column: 1/3;
-    display: grid;
-    grid-template-columns: 20% 50% 20%;
-    gap: 40px;
-    align-items: center;
-    padding: 40px 0;
-    border-bottom: 1px solid #F4F4F4;
-}
-
-.ic_search{
-    width: 25px;
-    height: 25px;
-}
-.util_wrap{
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    gap: 20px;
-    font-size: .8em;
-}
-.logout{
-    display: flex;
-    align-items: center;
-    gap: 20px;
-
-}
-.profile{
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-.profile > .thumb{
-    display: block;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: #eee;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    overflow: hidden;
-}
-.profile > .thumb > img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.profile > .name{
-    font-weight: 700;
-}
-.util_wrap > .ic > img{
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-.logout .link_logout{
-    color: #888;
-}
-
-.search_bar_wrap{
-    display: grid;
-    grid-template-columns: 700px 35px;
-    align-items: center;
-    grid-gap: 20px;
-}
-.search_bar_wrap .search_bar{
-    display: grid;
-    grid-template-columns: 1fr;
-    align-items: center;
-    grid-gap: 4px;
-
-    padding: 15px 20px;
-    border-radius: 60px;
-    background: #fff;
-    border: 1px solid #D9D9D9;
-}
-.search_bar .ic_del{
-    width: 12px;
-    height: 12px;
-    /* display: none; */
-}
-#side_menu{
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    border-right: 1px solid #F4F4F4;
-    padding: 40px 40px 40px 0;
-}
-#side_menu .banner_wrap{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    justify-content: space-between;
-    grid-gap: 10px;
-}
-#side_menu .banner_wrap > a{
-    text-align: center;
-    padding: 15px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    word-break: keep-all;
-    text-align: left;
-}
-#side_menu .banner_wrap > a > .ic{
-    border-radius: 5px;
-    background: #eee;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px;
-    /* box-sizing: border-box; */
-}
-#side_menu .banner_wrap > a > p{
-    font-size: .9em;
-    font-weight: 700;
-    line-height: 1.1;
-    color: #222;
-}
-
-#side_menu .tab_wrap{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    justify-content: space-between;
-    grid-gap: 10px;
-    
-}
-#side_menu .tab_tit{
-    font-size: 1em;
-    font-weight: 400;
-    margin: 0 0 10px;
-}
-#side_menu .tab_wrap input[type="checkbox"]+label{
-    background: #fff;
-    border: 1px solid #CAC4D0;
-    border-radius: 6px;
-    color: #888;
-    padding: 15px 0px;
-    font-size: 15px;
-    text-align: center;
-    
-}
-#side_menu .tab_wrap input[type="checkbox"]:checked+label{
-    border: 1px solid #222;
-    color: #222;
-}
-
-
-#side_menu .select_wrap{
-    background: #fff url(../../public/images/ic_arrowdown.png) no-repeat calc(100% - 20px)/18px;
-    border: 1px solid #CAC4D0;
-    color: #888;
-    border-radius: 50px;
-    width: 80%;
-}
-
-#side_menu .select_wrap select{
-    width: 100%;
-    padding: 15px 20px;
-    background: transparent;
-    color: #888;
-}
-#side_menu .select_wrap select option{
-    color: #888;
-}
-#side_menu .radio_wrap{
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-#side_menu .radio_wrap label{
-    display: flex;
-    align-items: center;
-    grid-gap: 5px;
-    font-size: 15px;
-}
-#side_menu .radio_wrap label::before{
-    content: '';
-    display: inline-block;
-    width: 15px;
-    height: 15px;
-    background: url(../../public/images/radio_off.png) no-repeat center/contain;
-}
-#side_menu .radio_wrap input[type="radio"]:checked + label::before{
-    background: url(../../public/images/radio_on.png) no-repeat center/contain;
-}
-
 main .board_wrap{
     font-size: 1.1em;
     padding: 30px 0;
@@ -308,7 +21,7 @@ main .board_wrap .board_con{
     align-items: center;
 }
 main .board_wrap .board_tit > div,
-main .board_wrap .board_con > div{
+main .board_wrap .board_con > div{ 
     padding: 15px 20px;
 }
 
@@ -370,67 +83,7 @@ main .board_wrap .board_con .reward .ic_lion::before{
     background: url(../../public/images/stamp.png) no-repeat right/100% auto;
     z-index: -1;
 }
-footer{
-    border-top: 1px solid #F4F4F4;
-    padding: 40px 0;
-    grid-column: 1/3;
-}
-footer p{
-    text-align: center;
-    color: #888;
-    font-size: .8em;
-    font-weight: 400;
-}
-
-
-
-
-/* labtop */
 @media (max-width:1600px){
-    .container{
-        width: 94%;
-    }
-    #main{
-        /* gap: 0 30px; */
-    }
-    header{
-        padding: 30px 0;
-        gap: 30px;
-    }
-    .search_bar_wrap{
-        grid-template-columns: 1fr 35px;
-        gap: 15px;
-    }
-
-    .logo img{
-        width: 65%;
-        min-width: 110px;
-    }
-    .util_wrap{
-        gap: 15px;
-    }
-    .logout{
-        gap: 15px;
-    }
-
-    #side_menu{
-        gap: 30px;
-        padding: 30px 30px 30px 0;
-    }
-    #side_menu .tab_wrap{
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
-    #side_menu .select_wrap{
-        width: 100%;
-    }
-    #side_menu .select_wrap select{
-        padding: 12px 15px;
-    }
-    #side_menu .radio_wrap{
-        flex-direction: column;
-        align-items: start;
-        gap: 12px;
-    }
 
     main .banner_wrap .board_tit{
         white-space: nowrap;
@@ -444,20 +97,7 @@ footer p{
         gap: 3px;
     }
 }
-
-/* tablet */
 @media (max-width:1024px){
-    #side_menu .tab_wrap{
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 6px;
-    }
-    #side_menu .tab_wrap input[type="checkbox"]+label{
-        padding: 12px 0;
-        font-size: .9em;
-    }
-    #side_menu .select_wrap select{
-        font-size: .9em;
-    }
     main .board_wrap .board_tit > div, main .board_wrap .board_con > div{
         line-height: 1.1em;
         padding: 12px 0px;
@@ -478,117 +118,11 @@ footer p{
     main .board_wrap .board_con .reward .ic_lion{
     }
 }
-
-
-/* tablet & mobile */
 @media (max-width:768px){
-    *{
-        font-size: 14px;
-    }
-    .visible-mo{
-        display: block;
-    }
-    .hidden-mo{
-        display: none;
-    }
-
-    .ic{
-        width: 21px;
-        height: 21px;
-    }
 
     #main{
         display: flex;
         flex-direction: column;
-    }
-    header{
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-        padding: 15px 0;
-        grid-gap: 15px;
-        border: none;
-
-        display: grid;
-        grid-template-columns: 1fr auto;
-    }
-    header .logo{
-        height: 25px;
-    }
-    header .logo img{
-        width: auto;
-        height: 100%;
-        min-width: inherit;
-        object-fit: contain;
-    }
-    header .ic_back{
-        display: none;
-    }
-    .search_bar_wrap{
-        grid-column: 1/3;
-        width: 100%;
-        grid-template-columns: 1fr 21px;
-        gap: 15px;
-        border-bottom: 0;
-    }
-    .search_bar_wrap .search_bar{
-        font-size: .9em;
-    }
-
-    .util_wrap{
-        grid-row: 1/1;
-        grid-column: 2/3;
-    }
-
-
-    nav{
-        display: none;
-        position: absolute;
-        width: 94%;
-        left: 50%;
-        top: 120px;
-        height: calc(100vh - 120px);
-        background: #fff;
-        z-index: 99;
-        transform: translate(-50%, 0);
-    }
-    
-
-    /* body.active일때 js랑 연결*/
-    body{
-        position: unset;
-    }
-    body.active{
-        position: fixed;
-    }
-    body.active .logo{
-        display: none;
-    }
-    body.active .ic_back{
-        display: block;
-    }
-    /* body.active .search_bar .ic_del{
-        display: block;
-    } */
-
-
-
-
-    
-    #side_menu{
-        padding: 15px 0;
-        border: none;
-        gap: 15px;
-    }
-    #side_menu .banner_wrap{
-        display: none;
-    }
-    #side_menu .tab_wrap{
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    }
-    #side_menu .radio_wrap{
-        flex-direction: row;
-        align-items: center;
     }
 
     main .board_wrap{
@@ -646,58 +180,20 @@ footer p{
     main .board_wrap .board_con .reward{
         padding: 0;
     }
-
-
-    footer{
-        padding: 15px ;
-    }
-
-    .gnb{
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 60px;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        z-index: 999;
-        border-top: 1px solid #D9D9D9;
-    }
-    .gnb > a{
-        padding: 6px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: #fff;
-        gap: 5px;
-    }
-    .gnb > a > .ic > img{
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
-    .gnb > a > p{
-        font-size: 11px;
-        color: #888;
-    }
-
 }
-
-
-
-/* mobile */
 @media (max-width:480px){
 }
+
+
 
 #list_view{
     display: grid;
     grid-template-columns: 1fr 20%;
     gap: 0px 40px;
 }
-#list_view nav{
+#list_view #nav{
     grid-column: 1/3;
-
+    z-index: 99999;
 }
 #list_view #side_menu{
     padding:  0;
@@ -732,7 +228,7 @@ footer p{
 #list_view nav > a{
     padding: 20px 0;
     /* font-size: .9em; */
-
+    
     display: flex;
 }
 #list_view nav > a .ic{
@@ -771,7 +267,7 @@ footer p{
     gap: 10px;
 }
 #list_view main .top_wrap .btn_like{
-
+    
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -830,7 +326,7 @@ footer p{
 }
 #list_view main .label_wrap > dd{
     font-weight: 400;
-
+    
 }
 #list_view main .label_wrap .label-box{
     padding: 5px 10px;
@@ -919,7 +415,7 @@ footer p{
     flex-direction: column;
     /* gap: 15px; */
     border-radius: 6px;
-
+    
 }
 #list_view main .comment_wrap .list_wrap li{
     padding: 15px;
@@ -938,7 +434,7 @@ footer p{
 }
 #list_view main .comment_wrap .list_wrap li p{
     font-size: 12px;
-
+    
     display: flex;
     align-items: center;
     gap: 7.5px;
@@ -1008,7 +504,7 @@ footer p{
     }
     #list_view main{
         padding: 30px 30px 30px 0;
-
+        
     }
     #list_view main .top_wrap{
         grid-template-columns: 1fr;
@@ -1024,8 +520,8 @@ footer p{
         display: flex;
         flex-direction: column;
     }
-    #list_view nav{
-        display: none;
+    #list_view #nav{
+        /* display: none; */
     }
     #list_view #side_menu section{
         display: block;

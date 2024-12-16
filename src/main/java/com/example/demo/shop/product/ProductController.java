@@ -37,7 +37,7 @@ public class ProductController {
     /**
      * 모든 제품 조회 API
      */
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> products = productService.getAllProducts();
         return ResponseEntity.ok(products);
