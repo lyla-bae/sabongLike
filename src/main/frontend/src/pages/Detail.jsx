@@ -44,7 +44,7 @@ const Detail = ({setPosition}) => {
                   <img src="/images/ic_bookmark.svg" alt="즐겨찾기 추가"
                        className="ic "/>
                 </a>
-                <a className="btn_submit" href="#">
+                <a className="btn_submit" href={data?.url} target = "_blank">
                   신청하러 가기
                   <img src="/images/ic_arrowright.svg" alt="신청하러 가기"
                        className="ic"/>

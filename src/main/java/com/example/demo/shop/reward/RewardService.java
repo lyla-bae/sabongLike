@@ -41,4 +41,11 @@ public class RewardService {
         rewardRepository.save(reward);
     }
 
+    public int getPoints(Long userId) {
+        Reward reward = rewardRepository.findByUserId(userId)
+            .orElseThrow(() -> new IllegalArgumentException("리워드 정보가 없습니다."));
+
+        return reward.getPoints();
+
+    }
 }

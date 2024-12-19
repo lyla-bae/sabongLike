@@ -42,20 +42,17 @@ const Menu = ({setIsChecked, setCheckedList, checkedList, isChecked}) => {
               </div>
               <p className="">리워드 샵</p>
             </Link>
-            <a href="#">
+            <Link to="/certification">
               <div className="ic">
-                <img src="/images/ic_gnb02.svg" alt="물품 나눔"/>
+                <img src="/images/ic_gnb02.svg" alt="봉사 인증"/>
               </div>
               <p className="">물품 나눔</p>
-            </a>
+            </Link>
             <a href="#">
               <div className="ic">
                 <img src="/images/ic_gnb03.svg" alt="데일리 목표"/>
               </div>
-              <Link to={"/certification"}>
               <p className="">데일리 목표</p>
-              </Link>
-
             </a>
           </section>
 

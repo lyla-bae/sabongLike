@@ -145,7 +145,8 @@
 }
 #reward #view .top_info{
     display: grid;
-    grid-template-columns: 1fr 30%;
+    width: 100%;
+    grid-template-columns: 1fr 40%;
     gap: 30px;
 }
 #reward #view .top_info .thumb_img{
@@ -316,6 +317,10 @@
     padding: 30px 0;
     border-bottom: 1px solid #eee;
     scroll-margin-top: 47px;
+}
+
+#reward #view .btm_info .tab_con img{
+    width: 100%;
 }
 
 #reward #view .best_pro{

@@ -55,8 +55,8 @@ public class VolunteeringController {
         @RequestParam(required = false) Boolean isOnline,
         @RequestParam(defaultValue = "0") int page,
         @RequestParam(defaultValue = "10") int size,
-        @RequestParam(defaultValue = "id") String sortField,
-        @RequestParam(defaultValue = "ASC") Direction direction) {
+        @RequestParam(defaultValue = "progrmEndde") String sortField,
+        @RequestParam(defaultValue = "DESC") Direction direction) {
         System.out.println("Received sidoCds: " + sidoCd);
 
         return volunteeringService.searchPrograms(
