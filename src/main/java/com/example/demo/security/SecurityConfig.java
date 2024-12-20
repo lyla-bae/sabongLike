@@ -19,6 +19,8 @@ import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequ
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import static com.example.demo.security.CorsConfig.corsConfigurationSource;
+
 @Configuration
 @EnableWebSecurity
 @ComponentScan(basePackages = "com.example.demo")
@@ -33,12 +35,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((authorizeRequests) ->
-                        authorizeRequests.requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
-                .csrf((csrfConfig) -> csrfConfig.disable())
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/login", "/oauth2/**").permitAll()
-                        .anyRequest().authenticated()
+                // CORS 설정 추가
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf().disable() // CORS와 관련된 문제를 방지하기 위해 CSRF 비활성화
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().permitAll() // 모든 요청 허용
                 )
                 .oauth2Login(oauth -> oauth
                         .loginPage("/login") // 사용자 정의 로그인 페이지
