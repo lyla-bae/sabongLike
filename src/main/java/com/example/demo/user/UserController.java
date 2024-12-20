@@ -42,7 +42,7 @@ public class UserController {
             return "signup failed: " + bindingResult.getFieldError().getDefaultMessage();
         }
         try {
-            userService.create(user.getLoginId(), user.getPassword1(),user.getNickname());
+//            userService.create(user.getLoginId(), user.getPassword1(),user.getNickname());
         }catch (DataIntegrityViolationException e ){
             e.printStackTrace();
             bindingResult.reject("signupFailed","이미 등록된 사용자입니다.");

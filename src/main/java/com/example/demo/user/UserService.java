@@ -1,35 +1,25 @@
 package com.example.demo.user;
 
-
-import com.example.demo.DataNotFoundException;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class UserService {
+
     private final SiteUserRepository siteUserRepository;
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
-    public SiteUser create(String loginId, String password,  String nickname ) {
-
-        SiteUser siteUser = new SiteUser();
-        siteUser.setLoginId(loginId);
-        siteUser.setPassword(passwordEncoder.encode(password));
-        siteUser.setNickname(nickname);
-        this.siteUserRepository.save(siteUser);
-        return siteUser;
+    public SiteUser findOrCreateUser(String naverId, String email, String name) {
+        SiteUser user = siteUserRepository.findByLoginId(naverId);
+        if (user == null) {
+            user = new SiteUser();
+            user.setLoginId(naverId);
+            user.setNickname(name); // 이름과 닉네임 통일
+//            user.setPassword(passwordEncoder.encode("default_password")); // 기본 비밀번호 설정
+            siteUserRepository.save(user);
+        }
+        return user;
     }
-
-    public SiteUser getUser(String loginId) {
-        Optional<SiteUser> user = siteUserRepository.findByLoginId(loginId);
-        if (user.isPresent()) {
-            return user.get();
-        }else
-            throw new DataNotFoundException("user not found");
-    }
-
-
 }

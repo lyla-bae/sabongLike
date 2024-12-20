@@ -1,9 +1,11 @@
 package com.example.demo.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.Oauth.OAuthUserService;
+import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,54 +13,55 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
+import org.springframework.security.oauth2.client.web.HttpSessionOAuth2AuthorizationRequestRepository;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan(basePackages = "com.sabong")
+@ComponentScan(basePackages = "com.example.demo")
 public class SecurityConfig {
-    @Autowired
-    private AuthSuccessHandler authSuccessHandler;
+
+    private final OAuthUserService oAuthUserService;
+
+    public SecurityConfig(@Lazy OAuthUserService oAuthUserService) { // @Lazy 추가
+        this.oAuthUserService = oAuthUserService;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((authorizeRequests) ->
-                    authorizeRequests.requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
-                .csrf((csrfConfig)->csrfConfig.disable())
-                .headers((headers)->headers
-                        .addHeaderWriter(new XFrameOptionsHeaderWriter(
-                                XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN
-                        )))
-                .formLogin((formLogin)-> formLogin
-                        .loginPage("/user/login")
-                        .successHandler(authSuccessHandler))
-//                        .failureHandler());
-
-//                        .defaultSuccessUrl("http://localhost:3000"))
-//                .login
-                .logout((logout)->logout
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-                        .logoutSuccessUrl("/")
-                        .invalidateHttpSession(true))
-                .sessionManagement((session) -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
-                .cors((cors)->cors.configurationSource(CorsConfig.corsConfigurationSource()));
-
-
+                .oauth2Login(oauth -> oauth
+                        .loginPage("/login") // 사용자 정의 로그인 페이지
+                        .defaultSuccessUrl("/") // 로그인 성공 후 리다이렉트
+                        .failureUrl("/") // 로그인 실패 시 리다이렉트
+                        .authorizationEndpoint(auth -> auth
+                                .baseUri("/oauth2/authorize") // OAuth2 인증 요청 엔드포인트
+                        )
+                        .redirectionEndpoint(redir -> redir
+                                .baseUri("/login/oauth2/code/*") // OAuth2 Redirect URI
+                        )
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(oAuthUserService) // 사용자 정보 서비스 등록
+                        )
+                );
         return http.build();
     }
 
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+
+//    @Bean
+//    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+//        return authenticationConfiguration.getAuthenticationManager();
+//    }
 
     @Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
-        return authenticationConfiguration.getAuthenticationManager();
+    public AuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository() {
+        return new HttpSessionOAuth2AuthorizationRequestRepository();
     }
 }
-
