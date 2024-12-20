@@ -22,7 +22,6 @@ public class SiteUser {
     @Column(unique = true)
     private String loginId;
 
-    @Column(nullable = false)
     private String password;
 
     private String nickname;

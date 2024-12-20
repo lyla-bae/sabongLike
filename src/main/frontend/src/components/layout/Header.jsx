@@ -1,7 +1,14 @@
 
 import "../../style/default.css"
 import {Link} from "react-router-dom";
+import NaverLoginButton from "../main/NaverLogin";
+import axios from "axios";
 const Header = () => {
+    const handleLoginSuccess = async (userData) => {
+        console.log(userData)
+        // var con = document.getElementById("naverIdLogin");
+        // con.style.display = "none";
+    };
 
   return (
       <>
@@ -34,13 +41,10 @@ const Header = () => {
             <a href="#" className="ic ic_bell">
               <img src="/images/ic_bell.svg" alt="알림 바로가기"/>
             </a>
-
              <div className="logout hidden-mo">
               <a href="#" className="profile">
                             <span className="thumb">
-
                               <img src="/images/ic_thumb.png" alt="기본 프로필 사진"/>
-
                             </span>
                 <span className="name">김사봉</span>
               </a>
@@ -48,12 +52,11 @@ const Header = () => {
                 <span>로그아웃</span>
               </a>
             </div>
-
-
+            <NaverLoginButton onLoginSuccess={handleLoginSuccess}></NaverLoginButton>
           </div>
         </header>
       </>
         )
-        };
+    };
 
         export default Header;
