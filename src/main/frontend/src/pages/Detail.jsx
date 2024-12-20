@@ -182,9 +182,75 @@ const Detail = ({setPosition}) => {
             <h5>추천봉사활동</h5>
             <ul>
               <li>
-                <a href="#">
+                <a href="/detail/3227943">
                   <strong className="num">01</strong>
-                  <p>추천봉사의 이름</p>
+                  <p>성인) 더행복나눔장애인보호작업장 재능기부 봉사자 모집</p>
+                </a>
+              </li>
+              <li>
+                <a href="/detail/3225969">
+                  <strong className="num">02</strong>
+                  <p>(오전) 사서 업무 보조 및 환경 정화 활동</p>
+                </a>
+              </li>
+              <li>
+                <a href="/">
+                  <strong className="num">03</strong>
+                  <p>부산대학교치과병원 2025년 신규 성인 자원봉사자 모집</p>
+                </a>
+              </li>
+              <li>
+                <a href="/">
+                  <strong className="num">04</strong>
+                  <p>[아이사랑꿈터5호점] 뜨개질교육 봉사 (13:30~15:30)</p>
+                </a>
+              </li>
+              <li>
+                <a href="/">
+                  <strong className="num">05</strong>
+                  <p>구미YMCA 초등학생 기초학습지도A(수)</p>
+                </a>
+              </li>
+              <li>
+                <a href="/">
+                  <strong className="num">06</strong>
+                  <p>전주부채문화관 지킴이 (관람객 안내 및 전시관 체험 보조)</p>
+                </a>
+              </li>
+              <li>
+                <a href="/">
+                  <strong className="num">07</strong>
+                  <p>척척박사! 스마트폰 무엇이든 물어보세요(스마트폰 교육봉사)</p>
+                </a>
+              </li>
+              <li>
+                <a href="/detail/3210619">
+                  <strong className="num">08</strong>
+                  <p>다이닝브랜즈그룹(bhc치킨) 영케어러 멘토링봉사단 모집</p>
+                </a>
+              </li>
+              <li>
+                <a href="/">
+                  <strong className="num">09</strong>
+                  <p>(교육봉사) 초등 방과후 돌봄교실 학습지도</p>
+                </a>
+              </li>
+              <li>
+                <a href="/">
+                  <strong className="num">10</strong>
+                  <p>텃밭 가꾸기 보조 봉사자 모집</p>
+                </a>
+              </li>
+              <li>
+                <a href="/">
+                  <strong className="num">11</strong>
+                  <p>노년사회화교육 컴퓨터 기초 자원봉사자 모집</p>
+                </a>
+              </li>
+              <li>
+                <a href="/">
+                  <strong className="num">12</strong>
+                  <p>양정현대2차아파트 순환도로 환경미화(★★★중학생 모집★★★)</p>
                 </a>
               </li>
 

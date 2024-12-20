@@ -67,7 +67,7 @@ const Menu = ({setIsChecked, setCheckedList, checkedList, isChecked, setIsOnline
               <div className="ic">
                 <img src="/images/ic_gnb02.svg" alt="봉사 인증"/>
               </div>
-              <p className="">물품 나눔</p>
+              <p className="">봉사 인증</p>
             </Link>
             <a href="#">
               <div className="ic">
