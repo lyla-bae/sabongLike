@@ -10,6 +10,7 @@ const MainPage = ({setPosition}) => {
 
   const [checkedList, setCheckedList] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
+  const [isOnline, setIsOnline] = useState(false)
 
   useEffect(() => {
     setPosition("main")
@@ -18,7 +19,7 @@ const MainPage = ({setPosition}) => {
       // progrmBgnde: 20230101,
       // progrmEndde: 20231231,
       sidoCd: checkedList.join(","),
-      // isOnline: true
+      isOnline: isOnline
 
       // 배열로 전달
       // gugunCd: 12345,
@@ -39,7 +40,7 @@ const MainPage = ({setPosition}) => {
 
     }).then(res =>{
           console.log(res)
-          setData(res.data)
+          setData(res.data.content)
           setContents(res.data.totalElements)
         }
     ).catch(
@@ -47,7 +48,7 @@ const MainPage = ({setPosition}) => {
           console.log(err)
         }
     )
-  }, [page,checkedList]);
+  }, [page,checkedList,isOnline]);
 
 
 
@@ -56,7 +57,10 @@ const MainPage = ({setPosition}) => {
     <Menu setCheckedList = {setCheckedList}
           setIsChecked = {setIsChecked}
           isChecked = {isChecked}
-          checkedList = {checkedList}></Menu>
+          checkedList = {checkedList}
+          setIsOnline={setIsOnline}
+          isOnline = {isOnline}
+    ></Menu>
     <Main data = {data} page = {page} setPage = {setPage} contents = {contents} />
 
   </>)

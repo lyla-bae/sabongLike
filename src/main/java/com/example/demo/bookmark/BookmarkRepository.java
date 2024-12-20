@@ -13,4 +13,8 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
     Optional<Bookmark> findByVolunteeringIdAndUserLoginId(Long volunteeringId, String name);
 
     List<Bookmark> findByUser(SiteUser user);
+
+    Optional<Bookmark> findByVolunteeringIdAndUserId(Long volunteeringId, Long userId);
+
+
 }

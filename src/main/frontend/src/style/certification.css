@@ -1,0 +1,129 @@
+.certification {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  /*background-color: #f9f9f9;*/
+}
+
+
+.certification .certification-form {
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 30px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
+}
+
+.certification .certification-form h2 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #555;
+  margin-bottom: 15px;
+  border-bottom: 1px solid black;
+}
+
+.certification .certification-form form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+
+.certification .certification-form form input {
+  /*width: 100%;*/
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.certification .certification-form form input:focus {
+  border-color: #da9119;
+}
+
+.certification .certification-form form button {
+  padding: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #ffb02e;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  width: 100%;
+
+}
+
+.certification .certification-form form button:hover {
+  background-color: #cb8618;
+}
+
+.certification > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.certification > div div:first-of-type {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+
+
+.certification .certification-item {
+  width: 100%;
+  max-width: 600px;
+  background-color: #fff;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.certification .certification-item span {
+  font-size: 1rem;
+  color: #333;
+}
+
+.certification .certification-item span:last-of-type {
+  font-weight: bold;
+  color: #ffb02e;
+}
+
+.point-get-section{
+  width: 100%;
+  max-width: 600px;
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+.point-get-section .point-get-button {
+  padding: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #ffb02e;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  width: 100%;
+
+}
+
+.point-get-section .point-get-button:hover {
+  background-color: #cb8618;
+}

@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface SiteUserRepository extends JpaRepository<SiteUser, Integer> {
     Optional<SiteUser> findByLoginId(String loginId);
 
+
 }

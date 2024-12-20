@@ -1,10 +1,16 @@
 import {useState} from "react";
 import {Link} from "react-router-dom";
 
-const Menu = ({setIsChecked, setCheckedList, checkedList, isChecked}) => {
+const Menu = ({setIsChecked, setCheckedList, checkedList, isChecked, setIsOnline}) => {
   const sidoCode = {"세종":"5690000","서울":"6110000","부산":"6260000","대구":"6270000","인천":"6280000","광주":"6290000","대전":"6300000","울산":"6310000","경기":"6410000","강원":"6420000","충북":"6430000","충남":"6440000","전북":"6450000","전남":"6460000","경북":"6470000","경남":"6480000","제주":"6500000"}
   const keyList = Object.keys(sidoCode);
+  const [selected, setSelected] = useState('radio_all'); // 기본값은 radio_all
 
+  const handleChange = (e) => {
+    setSelected(e.target.id);
+    e.target.id === "radio_all"? setIsOnline(false): setIsOnline(true);
+    console.log(`Selected: ${e.target.id}`);
+  };
 
   const checkedItemHandler = (value, isChecked) => {
     if (isChecked) {
@@ -126,13 +132,18 @@ const Menu = ({setIsChecked, setCheckedList, checkedList, isChecked}) => {
 
           <section>
             <div className="radio_wrap">
-              <input type="radio" id="radio_all" name="radio_onoff"/>
+              <input  checked={selected === 'radio_all'}
+                      onChange={handleChange}
+                      type="radio"
+                      id="radio_all" name="radio_onoff"/>
               <label htmlFor="radio_all">오프라인/온라인</label>
 
-              <input type="radio" id="radio_offline" name="radio_onoff"/>
-              <label htmlFor="radio_offline">오프라인</label>
+              {/*<input type="radio" id="radio_offline" name="radio_onoff"/>*/}
+              {/*<label htmlFor="radio_offline">오프라인</label>*/}
 
-              <input type="radio" id="radio_online" name="radio_onoff"/>
+              <input onChange={handleChange}
+                     checked={selected === 'radio_online'}
+                     type="radio" id="radio_online" name="radio_onoff"/>
               <label htmlFor="radio_online">온라인</label>
             </div>
           </section>

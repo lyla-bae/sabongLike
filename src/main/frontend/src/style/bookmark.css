@@ -1,0 +1,10 @@
+.bookmark-title{
+  font-size: 1.3em;
+  font-weight: 600;
+  border-bottom: 1px solid #F4F4F4;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  height: 70px;
+  padding-left:30px ;
+}

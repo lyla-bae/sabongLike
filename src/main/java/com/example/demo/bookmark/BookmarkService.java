@@ -24,21 +24,22 @@ public class BookmarkService {
     private SiteUserRepository siteUserRepository; // SiteUserRepository 추가
 
 
-    public List<Bookmark> getBookmarksForUser(String loginId) {
+    public List<Bookmark> getBookmarksForUser(Long userId) {
         // 사용자 정보 가져오기
-        SiteUser user = siteUserRepository.findByLoginId(loginId)
+        SiteUser user = siteUserRepository.findById(Math.toIntExact(userId))
             .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
         // 사용자의 북마크 조회
         return bookmarkRepository.findByUser(user);
     }
 
-    public void addBookmark(Long volunteeringId, String name) {
+    public void addBookmark(Long volunteeringId, Long userId) {
 
-        SiteUser user = siteUserRepository.findByLoginId(name)
+        SiteUser user = siteUserRepository.findById(Math.toIntExact(userId))
             .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
-        Volunteering volunteering = volunteeringRepository.findById(volunteeringId)
+        Volunteering volunteering = volunteeringRepository.findByProgrmRegistNo(
+                Math.toIntExact(volunteeringId))
             .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 봉사활동 ID입니다."));
 
 
@@ -56,21 +57,32 @@ public class BookmarkService {
         bookmarkRepository.save(bookmark);
     }
 
-    public void removeBookmark(Long volunteeringId, String name) {
-        Optional<Bookmark> bookmarkOptional = bookmarkRepository.findByVolunteeringIdAndUserLoginId(volunteeringId, name);
+    public void removeBookmark(Long volunteeringId, Long userId) {
+        Optional<Volunteering> volunteeringOptional= volunteeringRepository.findByProgrmRegistNo(
+            Math.toIntExact(volunteeringId));
+
+        Optional<Bookmark> bookmarkOptional = bookmarkRepository
+            .findByVolunteeringIdAndUserId(volunteeringOptional.get().getId(), userId);
 
         if (bookmarkOptional.isPresent()) {
             Bookmark bookmark = bookmarkOptional.get();
             bookmarkRepository.delete(bookmark);
         } else {
-            throw new IllegalArgumentException("Bookmark not found with Volunteering ID: " + volunteeringId + " and Name: " + name);
+            throw new IllegalArgumentException("Bookmark not found with Volunteering ID: " + volunteeringId + " and Name: " + userId);
         }
     }
 
 
+    public boolean checkBookmarkExists(Long userId, Long volunteeringId) {
+        SiteUser user = siteUserRepository.findById(Math.toIntExact(userId))
+            .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
+        Volunteering volunteering = volunteeringRepository.findByProgrmRegistNo(
+                Math.toIntExact(volunteeringId))
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 봉사활동 ID입니다."));
 
-
+        return bookmarkRepository.existsByUserAndVolunteering(user, volunteering);
+    }
 }
 
 

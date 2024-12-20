@@ -28,9 +28,9 @@ const Header = () => {
           </div>
 
           <div className="util_wrap">
-            <a href="#" className="ic ic_bookmark">
+            <Link to="/bookmark" className="ic ic_bookmark">
               <img src="/images/ic_bookmark.svg" alt="즐겨찾기 바로가기"/>
-            </a>
+            </Link>
             <a href="#" className="ic ic_bell">
               <img src="/images/ic_bell.svg" alt="알림 바로가기"/>
             </a>

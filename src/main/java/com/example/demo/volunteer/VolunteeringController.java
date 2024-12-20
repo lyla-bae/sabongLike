@@ -61,7 +61,7 @@ public class VolunteeringController {
 
         return volunteeringService.searchPrograms(
             progrmSj, nanmmbyNm, progrmBgnde, progrmEndde, sidoCd, gugunCd,
-            actBeginTm, actEndTm, adultPosblAt, yngbgsPosblAt, false,
+            actBeginTm, actEndTm, adultPosblAt, yngbgsPosblAt, isOnline,
             page-1, size, sortField, direction);
     }
 

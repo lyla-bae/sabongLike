@@ -62,4 +62,7 @@ out/
 ### VS Code ###
 .vscode/
 
+**/build/**
+**/static/static**
+src/main/resources/static/images/**
 **/build/**.DS_Store

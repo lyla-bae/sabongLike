@@ -2,10 +2,13 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Comment from "./Comment";
+import {toast} from "react-toastify";
 
 const Detail = ({setPosition}) => {
   const {id} =useParams()
   const [data, setData] = useState()
+  const [isMarked, setIsMarked] = useState(false)
+  const [isEdited, setIsEdited] = useState(false)
 
   useEffect(() => {
     setPosition("list_view")
@@ -22,14 +25,63 @@ const Detail = ({setPosition}) => {
 
 
   }, []);
+  useEffect(() => {
+    axios({
+      url:"/bookmark/exists",
+      method:"post",
+      data:{
+        userId: 1,
+        volunteeringId: id
+      }
+
+    }).then(res=>{
+      console.log(res.data)
+      setIsMarked(res.data)
+    })
+
+  }, [isEdited]);
 
   const textFormmater =(originalText)=> {
     console.log(JSON.stringify(data.progrmCn));
     return  originalText.replace(/\r/g, '\n');
   }
 
+  function setBookmark() {
+    axios({
+      url:"/bookmark/add",
+      method:"post",
+      data:{
+        userId:1,
+        volunteeringId:id
+      }
+    }).then((res)=>{
+      console.log(res)
+      setIsEdited(!isEdited)
+      toast.success("즐겨찾기에 추가되었습니다!")
+    }).catch((err)=>{
+      console.log(err)
+      toast.warn("이미 추가된 활동입니다!")
+    })
+  }
 
 
+  function deleteBookmark() {
+    axios({
+      url:"/bookmark/remove",
+      method:"delete",
+      data:{
+        userId:1,
+        volunteeringId:id
+      }
+    }).then((res)=>{
+      console.log(res)
+      setIsEdited(!isEdited)
+      toast.success("즐겨찾기에서 삭제 되었습니다!")
+    }).catch((err)=>{
+      console.log(err)
+      toast.warn("이미 삭제된 활동입니다!")
+    })
+  }
 
   return(<>
         {data&&<>
@@ -39,12 +91,19 @@ const Detail = ({setPosition}) => {
                 {data?.progrmSj}
               </h1>
               <div className="btn_wrap">
-                <a className="btn_like" href="#">
-                  즐겨찾기 추가
-                  <img src="/images/ic_bookmark.svg" alt="즐겨찾기 추가"
-                       className="ic "/>
-                </a>
-                <a className="btn_submit" href={data?.url} target = "_blank">
+                {isMarked ?
+                    <button onClick={deleteBookmark} className="btn_like">
+                      즐겨찾기 삭제
+                      <img src="/images/ic_bookmark_active.svg" alt="즐겨찾기 삭제"
+                           className="ic "/>
+                    </button>
+                    :
+                    <button onClick={setBookmark} className="btn_like">
+                      즐겨찾기 추가
+                      <img src="/images/ic_bookmark.svg" alt="즐겨찾기 추가"
+                           className="ic "/>
+                    </button>}
+                <a className="btn_submit" href={data?.url} target="_blank">
                   신청하러 가기
                   <img src="/images/ic_arrowright.svg" alt="신청하러 가기"
                        className="ic"/>

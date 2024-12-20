@@ -7,6 +7,8 @@ import {useState} from "react";
 import RewardShop from "../../pages/RewardShop";
 import ShopItemDetail from "../rewordShop/ShopItemDetail";
 import Certification from "../../pages/Certification";
+import ItemRegister from "../../pages/ItemRegister";
+import Bookmark from "../../pages/Bookmark";
 
 
 const Layout = () => {
@@ -18,10 +20,13 @@ const Layout = () => {
         <Header></Header>
         <Routes>
           <Route path="/" element={<MainPage setPosition = {setPosition} />}/>
+          <Route path="/bookmark" element={<Bookmark setPosition = {setPosition} />}/>
+
           <Route path="/detail/:id" element={<Detail setPosition = {setPosition} />}/>
           <Route path="/reward_shop" element={<RewardShop setPosition = {setPosition}/>}/>
           <Route path="/reward_shop/:id" element={<ShopItemDetail setPosition = {setPosition}/>}/>
           <Route path="/certification" element={<Certification setPosition = {setPosition}/>}/>
+          <Route path="/reward_shop/item/register" element={<ItemRegister setPosition = {setPosition}/>}/>
 
 
         </Routes>

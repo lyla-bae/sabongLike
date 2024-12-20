@@ -17,8 +17,7 @@ const Main = ({data, page , setPage, contents}) => {
             <div>리워드</div>
           </div>
               <div className="board_con_wrap">
-              {/*여기 activty*/}
-                {data&&data.content.map(
+                {data&&data.map(
                     data=>{
                       return <Activity key={data.progrmRegistNo} data={data}/>
                     }
