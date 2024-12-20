@@ -33,6 +33,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .authorizeHttpRequests((authorizeRequests) ->
+                        authorizeRequests.requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
+                .csrf((csrfConfig) -> csrfConfig.disable())
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/", "/login", "/oauth2/**").permitAll()
+                        .anyRequest().authenticated()
+                )
                 .oauth2Login(oauth -> oauth
                         .loginPage("/login") // 사용자 정의 로그인 페이지
                         .defaultSuccessUrl("/") // 로그인 성공 후 리다이렉트

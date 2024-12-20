@@ -3,11 +3,18 @@ import "../../style/default.css"
 import {Link} from "react-router-dom";
 import NaverLoginButton from "../main/NaverLogin";
 import axios from "axios";
+import {useState} from "react";
 const Header = () => {
+    const [userName, setUserName] = useState("");
+
     const handleLoginSuccess = async (userData) => {
-        console.log(userData)
-        // var con = document.getElementById("naverIdLogin");
-        // con.style.display = "none";
+        setUserName(userData.name);
+
+        if (userData.name != ""){
+            var con = document.getElementById("naverIdLogin");
+            con.style.display = "none";
+        }
+
     };
 
   return (
@@ -42,15 +49,15 @@ const Header = () => {
               <img src="/images/ic_bell.svg" alt="알림 바로가기"/>
             </a>
              <div className="logout hidden-mo">
-              <a href="#" className="profile">
+                 {userName &&<a href="#" className="profile">
                             <span className="thumb">
                               <img src="/images/ic_thumb.png" alt="기본 프로필 사진"/>
                             </span>
-                <span className="name">김사봉</span>
-              </a>
-              <a href="#" className="link_logout">
+                   <span className="name">{userName}</span>
+              </a>}
+                 {userName && <a href="#" className="link_logout">
                 <span>로그아웃</span>
-              </a>
+              </a>}
             </div>
             <NaverLoginButton onLoginSuccess={handleLoginSuccess}></NaverLoginButton>
           </div>
