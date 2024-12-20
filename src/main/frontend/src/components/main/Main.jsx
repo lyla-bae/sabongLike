@@ -1,7 +1,6 @@
 import Pagination from "../Pagination";
-import axios from "axios";
-import {useEffect, useState} from "react";
 import Activity from "./Activity";
+
 
 const Main = ({data, page , setPage, contents}) => {
   
