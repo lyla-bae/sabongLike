@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import KakaoReverseGeocoding from "../main/kakaoReverseGeoCode";
 import {SidoCode} from "../common/sidoCode";
 
-const Menu = ({setIsChecked, setCheckedList, checkedList, isChecked, setIsOnline}) => {
+const Menu = ({setIsChecked, setCheckedList, searchQuery , setSearchQuery, checkedList, isChecked, setIsOnline}) => {
   const sidoCode = SidoCode
   const keyList = Object.keys(sidoCode);
   const [selected, setSelected] = useState('radio_all'); // 기본값은 radio_all

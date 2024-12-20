@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import NaverLoginButton from "../main/NaverLogin";
 import axios from "axios";
 import {useState} from "react";
-const Header = () => {
+const Header = ({setSearchQuery, searchQuery}) => {
     const [userName, setUserName] = useState("");
 
     const handleLoginSuccess = async (userData) => {
@@ -34,7 +34,8 @@ const Header = () => {
 
           <div className="search_bar_wrap">
             <div className="search_bar">
-              <input type="search" placeholder="봉사활동 키워드를 입력하세요"/>
+              <input value={searchQuery} type="search"
+                     onChange={e=>setSearchQuery(e.target.value)} placeholder="봉사활동 키워드를 입력하세요"/>
             </div>
             <button className="ic ic_search">
               <img src="/images/ic_search.svg" alt="검색어 찾기"/>

@@ -13,13 +13,14 @@ import Bookmark from "../../pages/Bookmark";
 
 const Layout = () => {
   const [position, setPosition] = useState("main")
+  const [searchQuery, setSearchQuery] = useState("")
 
 
   return (
       <div className="container" id={position}>
-        <Header></Header>
+        <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery}></Header>
         <Routes>
-          <Route path="/" element={<MainPage setPosition = {setPosition} />}/>
+          <Route path="/" element={<MainPage searchQuery={searchQuery} setSearchQuery={setSearchQuery} setPosition = {setPosition} />}/>
           <Route path="/bookmark" element={<Bookmark setPosition = {setPosition} />}/>
 
           <Route path="/detail/:id" element={<Detail setPosition = {setPosition} />}/>

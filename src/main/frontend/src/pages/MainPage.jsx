@@ -3,7 +3,7 @@ import Main from "../components/main/Main";
 import {useEffect, useState} from "react";
 import axios from "axios";
 
-const MainPage = ({setPosition}) => {
+const MainPage = ({searchQuery,setSearchQuery,setPosition}) => {
   const [data, setData] = useState()
   const [page, setPage] = useState(1)
   const [contents, setContents] = useState(1)
@@ -15,7 +15,7 @@ const MainPage = ({setPosition}) => {
   useEffect(() => {
     setPosition("main")
     const params = {
-      // progrmSj: "봉사",
+      progrmSj: searchQuery,
       // progrmBgnde: 20230101,
       // progrmEndde: 20231231,
       sidoCd: checkedList.join(","),
@@ -48,7 +48,7 @@ const MainPage = ({setPosition}) => {
           console.log(err)
         }
     )
-  }, [page,checkedList,isOnline]);
+  }, [page,checkedList,isOnline,searchQuery]);
 
 
 
