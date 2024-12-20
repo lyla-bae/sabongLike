@@ -18,11 +18,11 @@ const Activity = ({data}) => {
           </div>
           <div className="date date02">
             <span className="txt-date01 visible-mo">활동시간 : </span>
-            <span>2개월</span><span>(15:00~18:00)</span>
+            <span>{`${data.actBeginTm}:00~${data.actEndTm}:00`}</span>
           </div>
           <div className="reward">
-            <span className="num">5</span><span
-              className="ic_lion">어흥</span>
+            <span >{Math.abs(data.actEndTm-data.actBeginTm)*100}</span>
+            <span className="ic_lion">어흥</span>
           </div>
         </Link>
       </>

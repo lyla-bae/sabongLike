@@ -3,12 +3,17 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Comment from "./Comment";
 import {toast} from "react-toastify";
+import {SidoCode} from "../components/common/sidoCode";
 
 const Detail = ({setPosition}) => {
   const {id} =useParams()
   const [data, setData] = useState()
   const [isMarked, setIsMarked] = useState(false)
   const [isEdited, setIsEdited] = useState(false)
+  function getKeyByValue(object, value) {
+
+    return Object.keys(object).find(key => object[key] === value);
+  }
 
   useEffect(() => {
     setPosition("list_view")
@@ -110,11 +115,9 @@ const Detail = ({setPosition}) => {
                 </a>
               </div>
               <dl className="label_wrap">
-                <dt>기업형태</dt>
-                <dd>비영리단체/협회/재단</dd>
 
-                <dt>참여대상</dt>
-                <dd><span className="label-box">청소년/성인</span></dd>
+                {/*<dt>참여대상</dt>*/}
+                {/*<dd><span className="label-box">청소년/성인</span></dd>*/}
 
                 <dt>접수기간</dt>
                 <dd>
@@ -129,38 +132,47 @@ const Detail = ({setPosition}) => {
 
                 <dt>활동기간</dt>
                 <dd>
-                  <span>{data?.progrmBgnde}</span>
-                  ~
-                  <span>{data?.progrmEndde}</span>
+                  <dl className="date_label_wrap">
+                    <dt>시작일</dt>
+                    <dd>{data?.progrmBgnde}</dd>
+
+                    <dt>종료일</dt>
+                    <dd>{data?.progrmEndde}</dd>
+                  </dl>
+                  {/*<span>{data?.progrmBgnde}</span>*/}
+                  {/*~*/}
+                  {/*<span>{data?.progrmEndde}</span>*/}
                 </dd>
+                <dt>주최기관</dt>
+                <dd>{data.mnnstNm}</dd>
 
                 <dt>모집인원</dt>
-                <dd>0명</dd>
+                <dd>{data?.rcritNmpr} 명</dd>
 
                 <dt>활동지역</dt>
-                <dd>서울 서대문구</dd>
+                <dd>{getKeyByValue(SidoCode, String(data?.sidoCd))}</dd>
 
-                <dt>봉사대상</dt>
+                <dt>모집여부</dt>
                 <dd>
-                  <span className="label-box">청소년/성인</span>
+                  <span className="label-box">
+                    {data?.progrmSttusSe === 2 ? "모집중" : "모집마감"}</span>
                 </dd>
 
                 <dt>리워드</dt>
                 <dd>
-                  3
-                  어흥
+                  {Math.abs(data.actEndTm - data.actBeginTm) * 100} 어흥
                 </dd>
 
-                <dt>활동혜택</dt>
-                <dd>교통비</dd>
+                {/*<dt>활동혜택</dt>*/}
+                {/* <dd>교통비</dd>*/}
 
-                <dt>관심분야</dt>
-                <dd><span className="label-box">디자인/사진/예술/영상</span></dd>
+                {/*<dt>관심분야</dt>*/}
+                {/*<dd><span className="label-box">디자인/사진/예술/영상</span></dd>*/}
               </dl>
             </section>
             <section className="con_wrap">
               <h3>상세내용</h3>
-              <div className="con">{textFormmater(data.progrmCn)}</div>
+              <div className="con">{textFormmater(data?.progrmCn)}</div>
             </section>
               <Comment postId={id} />
           </main>

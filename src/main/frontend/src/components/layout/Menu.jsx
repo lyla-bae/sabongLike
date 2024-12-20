@@ -1,9 +1,10 @@
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import KakaoReverseGeocoding from "../main/kakaoReverseGeoCode";
+import {SidoCode} from "../common/sidoCode";
 
 const Menu = ({setIsChecked, setCheckedList, checkedList, isChecked, setIsOnline}) => {
-  const sidoCode = {"세종":"5690000","서울":"6110000","부산":"6260000","대구":"6270000","인천":"6280000","광주":"6290000","대전":"6300000","울산":"6310000","경기":"6410000","강원":"6420000","충북":"6430000","충남":"6440000","전북":"6450000","전남":"6460000","경북":"6470000","경남":"6480000","제주":"6500000"}
+  const sidoCode = SidoCode
   const keyList = Object.keys(sidoCode);
   const [selected, setSelected] = useState('radio_all'); // 기본값은 radio_all
   const [city, setCity] = useState(""); // 카카오에서 가져온 시 정보
