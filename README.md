@@ -18,18 +18,19 @@
 | --------------- | ----- |
 | Java            | 17    |
 | Spring Boot     | 3.3.5 |
-| Spring Security | -     |
-| Spring Data JPA | -     |
+| Spring Security | 6.x   |
+| Spring Data JPA | 3.x   |
 | MySQL           | 8.x   |
-| Lombok          | -     |
+| Lombok          | 1.18.x|
 
 ### Frontend
 
-| 기술             | 버전 |
-| ---------------- | ---- |
-| React            | -    |
-| React Router DOM | -    |
-| React Toastify   | -    |
+| 기술             | 버전   |
+| ---------------- | ------ |
+| React            | 18.3.1 |
+| React Router DOM | 6.26.2 |
+| React Toastify   | 11.0.0 |
+| Axios            | 1.7.7  |
 
 ### 인증
 
